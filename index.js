@@ -1,6 +1,12 @@
 (function () {
     var video = document.querySelector('.camera__video'),
-        canvas = document.querySelector('.camera__canvas');
+        canvas = document.querySelector('.camera__canvas'),
+        controlsFilter = document.querySelector('.controls__filter'),
+        filterName = controlsFilter.value;
+
+    controlsFilter.onchange = function() {
+        filterName = controlsFilter.value;
+    }
 
     var getVideoStream = function (callback) {
         navigator.getUserMedia = navigator.getUserMedia ||
@@ -60,8 +66,6 @@
     };
 
     var applyFilter = function () {
-        var filterName = document.querySelector('.controls__filter').value;
-
         var imageData = canvas.getContext('2d').getImageData(0, 0, canvas.width, canvas.height);
         var imageDataActualLength = imageData.data.length / 4;
 
