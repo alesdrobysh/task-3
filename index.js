@@ -26,7 +26,7 @@
         }
     };
 
-    var applyFilterToPixel = function (pixel) {
+    var applyFilterToPixel = function (pixel, filterName) {
         var filters = {
             invert: function (pixel) {
                 pixel[0] = 255 - pixel[0];
@@ -56,12 +56,12 @@
             }
         };
 
-        var filterName = document.querySelector('.controls__filter').value;
-
         return filters[filterName](pixel);
     };
 
     var applyFilter = function () {
+        var filterName = document.querySelector('.controls__filter').value;
+
         var imageData = canvas.getContext('2d').getImageData(0, 0, canvas.width, canvas.height);
         var imageDataActualLength = imageData.data.length / 4;
 
@@ -72,7 +72,7 @@
                 imageData.data[ i * 4 + 2]
             ];
 
-            currentPixel = applyFilterToPixel(currentPixel);
+            currentPixel = applyFilterToPixel(currentPixel, filterName);
 
             imageData.data[i * 4 + 0] = currentPixel[0];
             imageData.data[i * 4 + 1] = currentPixel[1];
